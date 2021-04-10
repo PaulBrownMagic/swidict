@@ -57,7 +57,9 @@
 		is_dict(Dict),
 		get_dict(Key, Dict, Value).
 
-	empty(_{}).
+	empty(Dict) :-
+		is_dict(Dict),
+		Dict = _{}.
 
 	previous(Dict, Key, Previous, Value) :-
 		as_list(Dict, Pairs),
@@ -123,7 +125,12 @@
 	new(_{}).
 
 	check(Dict) :-
-		is_dict(Dict).
+		(	is_dict(Dict)
+		->	true
+		;	var(Dict)
+		->	instantiation_error
+		;	type_error(swidict, Dict)
+		).
 
 	valid(Dict) :-
 		is_dict(Dict).

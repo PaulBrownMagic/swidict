@@ -17,8 +17,9 @@
 		]),
 		logtalk_load([dictionaries(tests)], [hook(lgtunit)]),
 		tests(swidict)::run,
-		logtalk_load(nested_dictionaries(tests), [hook(lgtunit)]),
-		tests(nswidict)::run
+		/*logtalk_load(nested_dictionaries(tests), [hook(lgtunit)]),*/
+		/*tests(nswidict)::run,*/
+		true
 	)).
 :- else.
 	:- initialization((
