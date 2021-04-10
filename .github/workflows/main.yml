@@ -92,4 +92,5 @@ jobs:
           name: diagrams
           path: diagrams.zip
       - name: Set workflow exit status after the test results
-        run: [ $EXITFlat -le 0 ] && [ $EXITNested -le 0 ] ; exit $?
+        run: |
+            [ $EXITFlat -le 0 ] && [ $EXITNested -le 0 ] || exit $?
