@@ -42,15 +42,22 @@ jobs:
         run: |
           logtalk_tester -p swi -n tester_flat -f tap -c xml || EXITFlat=$?
           xsltproc --stringparam prefix work/$(basename $GITHUB_REPOSITORY)/$(basename $GITHUB_REPOSITORY)/ --stringparam url https://github.com/$GITHUB_REPOSITORY/tree/$GITHUB_SHA -o flat_coverage_report.html coverage_report.xml
+          mv tap_report.txt flat_tap_report.txt
       - name: Run the nested application tests
         run: |
           logtalk_tester -p swi -n tester_nested -f tap -c xml || EXITNested=$?
           xsltproc --stringparam prefix work/$(basename $GITHUB_REPOSITORY)/$(basename $GITHUB_REPOSITORY)/ --stringparam url https://github.com/$GITHUB_REPOSITORY/tree/$GITHUB_SHA -o nested_coverage_report.html coverage_report.xml
-      - name: Upload TAP report
+          mv tap_report.txt nested_tap_report.txt
+      - name: Upload Flat TAP report
         uses: actions/upload-artifact@master
         with:
-          name: tap-report
-          path: tap_report.txt
+          name: flat-tap-report
+          path: flat_tap_report.txt
+      - name: Upload Nested TAP report
+        uses: actions/upload-artifact@master
+        with:
+          name: nested-tap-report
+          path: nested_tap_report.txt
       - name: Upload flat code coverage report
         uses: actions/upload-artifact@master
         with:
@@ -64,7 +71,8 @@ jobs:
       - name: Make code coverage report and tap-report public
         run: |
           mkdir -p public
-          mv tap_report.txt public/
+          mv flat_tap_report.txt public/
+          mv nested_tap_report.txt public/
           mv flat_coverage_report.html public/
           mv nested_coverage_report.html public/
           cp README.md public/
@@ -74,29 +82,6 @@ jobs:
           dir: public
           branch: gh-pages
           token: ${{ secrets.GH_PAT }}
-      - name: Generate the application documentation
-        run: |
-          swilgt -g "{loader,lgtdoc(loader)},lgtdoc::directory('.')" -t halt
-          cd xml_docs
-          printf 'n\nSWIdict\nPaul Brown\n\n\n' | lgt2rst -s -t "swidict"
-          make html
-          cd _build/html
-          zip -r ../../../docs.zip *
-      - name: Upload documentation
-        uses: actions/upload-artifact@master
-        with:
-          name: docs
-          path: docs.zip
-      - name: Generate the application diagrams
-        run: |
-          swilgt -g "{loader,diagrams(loader)},diagrams::directory('.')" -t halt
-          lgt2svg
-          zip diagrams.zip *.svg
-      - name: Upload diagrams
-        uses: actions/upload-artifact@master
-        with:
-          name: diagrams
-          path: diagrams.zip
       - name: Set workflow exit status after the test results
         run: |
             [ $EXITFlat -le 0 ] && [ $EXITNested -le 0 ] || exit $?

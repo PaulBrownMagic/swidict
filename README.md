@@ -2,6 +2,8 @@
 
 ### Status
 - ![Workflow Status](https://github.com/PaulBrownMagic/swidict/actions/workflows/main.yml/badge.svg)
+- [Flat Tests Report](https://paulbrownmagic.github.io/swidict/flat_tap_report.txt)
+- [Nested Tests Report](https://paulbrownmagic.github.io/swidict/nested_tap_report.txt)
 - [Flat Dictionary Code Coverage Report](https://paulbrownmagic.github.io/swidict/flat_coverage_report.html)
 - [Nested Dictionary Code Coverage Report](https://paulbrownmagic.github.io/swidict/nested_coverage_report.html)
 
