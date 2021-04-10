@@ -26,8 +26,4 @@ Or if you want to make the change at runtime (at the expense of static binding):
     ...
 ```
 
-**NB** If you run the `dictionaries(tests)` with `swidict` you'll get 4 failing
-tests with Logtalk 3.45.0. These tests should pass but the assertion condition
-depends on an ordered list and these dicts don't guarantee order. This issue is
-fixed in the current Logtalk git version as the dictionaries protocol don't
-require a fixed order for the predicates tested. All tests with `nested_dictionaries(tests)` and `nswidict` pass.
+**NB** For all tests to pass you need to be running Logtalk >= 3.46.0
