@@ -1,4 +1,5 @@
 # SWI-Dict
+- ![Workflow Status](https://github.com/PaulBrownMagic/swidict/actions/workflows/main.yml/badge.svg)
 
 Using SWI-Prolog for your Logtalk backend and want to try using the SWI-Prolog
 dictionaries with the Logtalk dictionary protocol (or nested_dictionary
