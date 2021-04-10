@@ -1,5 +1,11 @@
 # SWI-Dict
 
+### Status
+- ![Workflow Status](https://github.com/PaulBrownMagic/swidict/actions/workflows/main.yml/badge.svg)
+- [Flat Dictionary Code Coverage Report](https://paulbrownmagic.github.io/swidict/flat_coverage_report.html)
+- [Nested Dictionary Code Coverage Report](https://paulbrownmagic.github.io/swidict/nested_coverage_report.html)
+
+## Using SWI-Dict
 Using SWI-Prolog for your Logtalk backend and want to try using the SWI-Prolog
 dictionaries with the Logtalk dictionary protocol (or nested_dictionary
 protocol) so you can swap implementations around easily? These are the objects
