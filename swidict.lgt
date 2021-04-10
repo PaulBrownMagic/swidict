@@ -45,13 +45,17 @@
 		update(OldDict, Key, _, Value, NewDict).
 
 	update(OldDict, Key, OldValue, NewValue, NewDict) :-
+		nonvar(Key),
 		is_dict(OldDict),
 		get_dict(Key, OldDict, OldValue, NewDict, NewValue).
 
-	lookup([], _).
-	lookup([Key-Value|Pairs], Dict) :-
-		lookup(Key, Value, Dict),
-		lookup(Pairs, Dict).
+	lookup(Pairs, Dict) :-
+		is_dict(Dict),
+		lookup2(Pairs, Dict).
+	lookup2([], _).
+	lookup2([Key-Value|Pairs], Dict) :-
+		get_dict(Key, Dict, Value),
+		lookup2(Pairs, Dict).
 
 	lookup(Key, Value, Dict) :-
 		is_dict(Dict),
@@ -65,7 +69,7 @@
 		as_list(Dict, Pairs),
 		list::sort(Pairs, Sorted),
 		previous_(Sorted, Key, Previous, Value).
-	previous_([Previous-Value, Key-_|_Pairs], Key, Previous, Value).
+	previous_([Previous-Value, Key-_|_Pairs], Key, Previous, Value) :- !.
 	previous_([K-_, K1-V|Pairs], Key, Previous, Value) :-
 		K \= Key,
 		K1 \= Key,
@@ -75,7 +79,7 @@
 		as_list(Dict, Pairs),
 		list::sort(Pairs, Sorted),
 		next_(Sorted, Key, Next, Value).
-	next_([Key-_, Next-Value|_Pairs], Key, Next, Value).
+	next_([Key-_, Next-Value|_Pairs], Key, Next, Value) :- !.
 	next_([K-_|Pairs], Key, Next, Value) :-
 		K \= Key,
 		next_(Pairs, Key, Next, Value).
@@ -113,8 +117,7 @@
 
 	:- meta_predicate(apply(2, *, *, *)).
 	apply(Closure, OldDict, Key, NewDict) :-
-		is_dict(OldDict),
-		get_dict(Key, OldDict, OldValue),
+		lookup(Key, OldValue, OldDict),
 		call(Closure, Key-OldValue, Key-NewValue),
 		put_dict(Key, OldDict, NewValue, NewDict).
 
