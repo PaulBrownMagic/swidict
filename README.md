@@ -13,7 +13,4 @@ using these. But if you need to change backend and you've been strict about
 only using the dictionary protocol, then you can switch to `avltree`, `bintree`
 or `rbtree` easily.
 
-**NB** If you run the `dictionaries(tests)` with `swidict` you'll get 4 failing
-tests. These tests should pass but the assertion condition depends on an
-ordered list and these dicts don't guarantee order. All tests with
-`nested_dictionaries(tests)` and `nswidict` pass.
+**NB** For all tests to pass you need to be running Logtalk >= 3.46.0
