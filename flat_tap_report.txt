@@ -69,6 +69,6 @@ ok 66 - dictionary_valid_1_01 @ tests(swidict)
 ok 67 - dictionary_valid_1_02 @ tests(swidict)
 ok 68 - dictionary_new_1_01 @ tests(swidict)
   ---
-  coverage: 88.37209302325581%
+  coverage: 95.0%
   ...
 
