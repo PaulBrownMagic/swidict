@@ -10,6 +10,7 @@
 	]),
 	use_module(library(dicts)),
 	logtalk_load([
+		types(pairs),
 		swidict,
 		nswidict
 	], [
